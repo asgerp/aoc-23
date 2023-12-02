@@ -63,13 +63,17 @@ fun main() {
     // val testInput = readInput("Day01_test")
     // check(part1(testInput) == 1)
 
-    val input = readInput("Day01")
-    part1(input).println()
-    val elapsed =
+    val elapsed1 =
+        measureTimeMillis {
+            val input = readInput("Day01")
+            part1(input).println()
+        }
+    println(elapsed1)
+    val elapsed2 =
         measureTimeMillis {
             val input2 = readInput("Day01_02")
             part2(input2).println()
             check(part2(input2) == 54087)
         }
-    println(elapsed)
+    println(elapsed2)
 }
