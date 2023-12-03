@@ -42,12 +42,13 @@ fun main() {
             }
             symbolsAbove = symbolsCurrent
             symbolsCurrent = symbolsBelow
-            symbolsBelow = if (lineIndex + 2 < input.size) {
-                regSymbols.findAll(input[lineIndex + 2])
-                    .map { it.groups["sym"]?.value to it.groups["sym"]?.range?.first }.toList()
-            } else {
-                emptyList()
-            }
+            symbolsBelow =
+                if (lineIndex + 2 < input.size) {
+                    regSymbols.findAll(input[lineIndex + 2])
+                        .map { it.groups["sym"]?.value to it.groups["sym"]?.range?.first }.toList()
+                } else {
+                    emptyList()
+                }
         }
         return result
     }
@@ -82,12 +83,13 @@ fun main() {
             }
             numbersAbove = numbersCurrent
             numbersCurrent = numbersBelow
-            numbersBelow = if (lineIndex + 2 < input.size) {
-                numberRegex.findAll(input[lineIndex + 2])
-                    .map { it.groups["num"]?.value?.toInt() to it.groups["num"]?.range }.toList()
-            } else {
-                emptyList()
-            }
+            numbersBelow =
+                if (lineIndex + 2 < input.size) {
+                    numberRegex.findAll(input[lineIndex + 2])
+                        .map { it.groups["num"]?.value?.toInt() to it.groups["num"]?.range }.toList()
+                } else {
+                    emptyList()
+                }
         }
         return result
     }

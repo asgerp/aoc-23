@@ -5,14 +5,13 @@ fun main() {
         val redMax = 12
         val greenMax = 13
         val blueMax = 14
-
+        val reg = "Game (?<gameNo>\\d+):".toRegex()
+        val regRed = "(?<red>\\d+) red".toRegex()
+        val regBlue = "(?<blue>\\d+) blue".toRegex()
+        val regGreen = "(?<green>\\d+) green".toRegex()
         var result = 0
         input.forEach { s ->
-            val reg = "Game (?<gameNo>\\d+):".toRegex()
             val gameNo = reg.find(s)?.groups?.get("gameNo")?.value?.toInt() ?: 0
-            val regRed = "(?<red>\\d+) red".toRegex()
-            val regBlue = "(?<blue>\\d+) blue".toRegex()
-            val regGreen = "(?<green>\\d+) green".toRegex()
             val red = regRed.findAll(s).map { it.groups["red"]?.value?.toInt() }.filterNotNull().maxBy { it }
             val blue = regBlue.findAll(s).map { it.groups["blue"]?.value?.toInt() }.filterNotNull().maxBy { it }
             val green = regGreen.findAll(s).map { it.groups["green"]?.value?.toInt() }.filterNotNull().maxBy { it }
@@ -25,10 +24,10 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         var result = 0
+        val regRed = "(?<red>\\d+) red".toRegex()
+        val regBlue = "(?<blue>\\d+) blue".toRegex()
+        val regGreen = "(?<green>\\d+) green".toRegex()
         input.forEach { s ->
-            val regRed = "(?<red>\\d+) red".toRegex()
-            val regBlue = "(?<blue>\\d+) blue".toRegex()
-            val regGreen = "(?<green>\\d+) green".toRegex()
             val red = regRed.findAll(s).map { it.groups["red"]?.value?.toInt() }.filterNotNull().maxBy { it }
             val blue = regBlue.findAll(s).map { it.groups["blue"]?.value?.toInt() }.filterNotNull().maxBy { it }
             val green = regGreen.findAll(s).map { it.groups["green"]?.value?.toInt() }.filterNotNull().maxBy { it }
