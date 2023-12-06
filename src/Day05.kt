@@ -63,7 +63,7 @@ fun main() {
                             val coords = s.trim().split(" ").map { it.toLong() }
                             // coords.println()
                             if (coords[1] <= location && location <= coords[1] + coords[2]) {
-                                //val tempLo = location
+                                // val tempLo = location
                                 location = coords[0] + location - coords[1]
                                 // println("$currentMap $tempLo" +
                                 //      " ${coords[1] + coords[2]}")
