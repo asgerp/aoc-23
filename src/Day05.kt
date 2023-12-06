@@ -9,7 +9,7 @@ fun main() {
 
     fun part1(input: List<String>): Long {
         val seeds = input[0].split(":")[1].trim().split(" ").map { it.toLong() }
-        //println("seeds: $seeds")
+        // println("seeds: $seeds")
         val lowest = mutableListOf<Long>()
         var currentMap = ""
         seeds.forEach seed@{ seed ->
@@ -22,18 +22,17 @@ fun main() {
                         currentMap = s
                     } else if (currentMap.isNotEmpty()) {
                         val coords = s.trim().split(" ").map { it.toLong() }
-                        if (coords[1] <= location && location <= coords[1] + coords[2])
-                            {
-                                location = coords[0] + location - coords[1]
-                                //println("$currentMap $location")
-                                currentMap = ""
-                            }
+                        if (coords[1] <= location && location <= coords[1] + coords[2]) {
+                            location = coords[0] + location - coords[1]
+                            // println("$currentMap $location")
+                            currentMap = ""
+                        }
                     }
                 }
             }
 
             lowest.add(location)
-            //"location for seed: $seed = $location".println()
+            // "location for seed: $seed = $location".println()
             currentMap = ""
         }
         "done".println()
@@ -48,9 +47,12 @@ fun main() {
         seeds.forEachIndexed seed@{ i, seed ->
             if (i % 2 != 0) return@seed
             "next seed $seed".println()
-            (seeds[i]..seeds[i] + seeds[i + 1]).toList().forEach seed@{ newSeed ->
-                println("running the thing")
-                var location = newSeed
+            var inde = seeds[i]
+            var loops = 0
+            val amounts = seeds[i + 1]
+            while (inde < (seeds[i] + seeds[i + 1])) {
+                var location = inde
+                // "next seed $inde".println()
                 input.forEach lines@{ s ->
 
                     if (s.isNotEmpty()) {
@@ -61,8 +63,11 @@ fun main() {
                             val coords = s.trim().split(" ").map { it.toLong() }
                             // coords.println()
                             if (coords[1] <= location && location <= coords[1] + coords[2]) {
+                                //val tempLo = location
                                 location = coords[0] + location - coords[1]
-                                println("$currentMap $location")
+                                // println("$currentMap $tempLo" +
+                                //      " ${coords[1] + coords[2]}")
+                                // inde += location - coords[1]
                                 currentMap = ""
                             }
                         }
@@ -74,14 +79,20 @@ fun main() {
                 } else {
                     if (location < lowest) {
                         lowest = location
+                        "new lowest $lowest at $inde".println()
                     }
                 }
-                "location for seed: $seed = $location".println()
+                // "location for seed  [$inde] = $location".println()
                 currentMap = ""
+                inde += 1
+                loops++
+                if (loops % 100000 == 0) println("$loops ${loops.toDouble().div(amounts)}")
+                //
             }
         }
         "done".println()
         return lowest
+        // 52210673
     }
 
     // test if implementation meets criteria from the description, like:
@@ -97,7 +108,7 @@ fun main() {
     println("part1 took: $elapsed1")
     val elapsed2 =
         measureTimeMillis {
-            val input2 = readInput("Day05_test")
+            val input2 = readInput("Day05_02")
             val part2Result = part2(input2)
             part2Result.println()
             // check(part2Result == 5489600)
