@@ -1,7 +1,10 @@
 import kotlin.system.measureTimeMillis
 
 fun main() {
-    fun holdLetGo(hold: Int, time: Int): Int {
+    fun holdLetGo(
+        hold: Int,
+        time: Int,
+    ): Int {
         return hold * (time - hold)
     }
 
@@ -25,7 +28,10 @@ fun main() {
         return list.reduce(Int::times)
     }
 
-    fun holdLetGoLong(hold: Int, time: Long): Long {
+    fun holdLetGoLong(
+        hold: Int,
+        time: Long,
+    ): Long {
         return hold * (time - hold)
     }
 
