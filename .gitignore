@@ -1,5 +1,5 @@
 .gradle
 .idea
-src/Day09.txt
+src/Day*.txt
 build
 
