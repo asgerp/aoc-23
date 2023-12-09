@@ -1,17 +1,22 @@
 import kotlin.system.measureTimeMillis
 
 fun main() {
-
     fun calculateLCM(numbers: List<Long>): Long {
         require(numbers.isNotEmpty()) { "List must not be empty" }
 
         // Function to calculate the GCD of two numbers
-        fun calculateGCD(a: Long, b: Long): Long {
+        fun calculateGCD(
+            a: Long,
+            b: Long,
+        ): Long {
             return if (b == 0L) a else calculateGCD(b, a % b)
         }
 
         // Function to calculate the LCM of two numbers
-        fun calculateLCMOfTwo(a: Long, b: Long): Long {
+        fun calculateLCMOfTwo(
+            a: Long,
+            b: Long,
+        ): Long {
             return if (a == 0L || b == 0L) 0 else (a * b) / calculateGCD(a, b)
         }
 
@@ -21,13 +26,14 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val directions = input[0].toCharArray().toList()
-        val nodes = mutableMapOf<String, Pair<String,String>>()
+        val nodes = mutableMapOf<String, Pair<String, String>>()
         input.drop(2).forEach {
             val node = it.split("=")[0].trim()
-            val stepLst = it.split("=")[1]
-                .replace("(", "")
-                .replace(")","")
-                .split(",")
+            val stepLst =
+                it.split("=")[1]
+                    .replace("(", "")
+                    .replace(")", "")
+                    .split(",")
             val nextSteps = Pair(stepLst[0].trim(), stepLst[1].trim())
             nodes[node] = nextSteps
         }
@@ -49,7 +55,6 @@ fun main() {
                     steps++
                 }
             }
-
         }
         println(nodes)
         return steps
@@ -60,15 +65,16 @@ fun main() {
         val nodes = mutableMapOf<String, Pair<String, String>>()
         input.drop(2).forEach {
             val node = it.split("=")[0].trim()
-            val stepLst = it.split("=")[1]
-                .replace("(", "")
-                .replace(")", "")
-                .split(",")
+            val stepLst =
+                it.split("=")[1]
+                    .replace("(", "")
+                    .replace(")", "")
+                    .split(",")
             val nextSteps = Pair(stepLst[0].trim(), stepLst[1].trim())
             nodes[node] = nextSteps
         }
         val allSteps = mutableListOf<Int>()
-        val listOfStarts = listOf("BBA", "BLA", "AAA", "NFA", "DRA", "PSA",)
+        val listOfStarts = listOf("BBA", "BLA", "AAA", "NFA", "DRA", "PSA")
         listOfStarts.forEach {
             var start = it
             var steps = 0
@@ -90,15 +96,12 @@ fun main() {
                 }
             }
             allSteps.add(steps)
-
         }
         println(nodes)
         println(allSteps)
         val yeah = calculateLCM(allSteps.map { it.toLong() })
         return yeah
     }
-
-
 
     // test if implementation meets criteria from the description, like:
     // val testInput = readInput("Day01_test")

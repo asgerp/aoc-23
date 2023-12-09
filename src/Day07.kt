@@ -97,7 +97,7 @@ fun main() {
             if (jokers == 1) {
                 return FOUR_OF_A_KIND
             }
-            if (jokers == 3 )return FOUR_OF_A_KIND
+            if (jokers == 3)return FOUR_OF_A_KIND
             return THREE_OF_A_KIND
         }
 
