@@ -2,17 +2,11 @@ import kotlin.math.abs
 import kotlin.system.measureTimeMillis
 
 fun main() {
-    fun getCharAt(
-        x: Int,
-        y: Int,
-        input: List<String>,
-    ): Char {
-        return input[x][y]
-    }
 
-    fun calculateGalaxyDistances(galaxies: List<Pair<Int, Int>>): Int {
+    fun calculateGalaxyDistances(galaxies: List<Pair<Int, Int>>): Pair<Int, List<Int>> {
         val searchList = galaxies.toMutableList()
         var result = 0
+        val distances = mutableListOf<Int>()
         while (searchList.isNotEmpty()) {
             val current = searchList[0]
             searchList.forEachIndexed { index, _ ->
@@ -20,14 +14,14 @@ fun main() {
                 if (index + 1 == searchList.size) return@forEachIndexed
                 val nextGalaxy = searchList[index + 1]
                 val distance = abs(nextGalaxy.first - current.first) + abs(nextGalaxy.second - current.second)
-                // println(distance)
+                distances.add(distance)
                 result += distance
             }
             // println()
             searchList.removeAt(0)
         }
 
-        return result
+        return result to distances
     }
 
     fun getGalaxyCoordinates(list: MutableList<MutableList<Char>>): List<Pair<Int, Int>> {
@@ -115,29 +109,35 @@ fun main() {
         }
 
         val verticallyExpanded = verticalExpansion(image, vertInserts)
-
         val fullyExpanded = horizontalExpansion(verticallyExpanded, horizontalInserts)
-        // println("EXPANDED!")
-        fullyExpanded.forEach {
-            // println(it)
-        }
 
         val galaxies = getGalaxyCoordinates(fullyExpanded)
-        return calculateGalaxyDistances(galaxies)
+        return calculateGalaxyDistances(galaxies).first
     }
 
-    fun part2(input: List<String>): Int {
-        val expansionFactor = 10
+    fun calDistDif(
+        orig: List<Int>,
+        expanded: List<Int>,
+        factor: Int,
+    ): Long {
+        var result = 0L
+        orig.forEachIndexed { index, dist ->
+            val d = expanded[index] - dist
+            result += dist + (factor * d) - d
+        }
+        return result
+    }
 
+    fun part2(input: List<String>): Long {
         val image = mutableListOf<MutableList<Char>>()
         input.forEachIndexed { index, s ->
             val h = mutableListOf<Char>()
             s.toCharArray().forEachIndexed { i, c ->
-                print("$c ")
+                // print("$c ")
                 h.add(i, c)
             }
             image.add(index, h)
-            println()
+            // println()
         }
 
         val vertInserts = mutableListOf<Int>()
@@ -146,7 +146,6 @@ fun main() {
                 vertInserts.add(index)
             }
         }
-        println(vertInserts)
         val t = transpose(image)
 
         val horizontalInserts = mutableListOf<Int>()
@@ -159,13 +158,14 @@ fun main() {
         val verticallyExpanded = verticalExpansion(image, vertInserts)
 
         val fullyExpanded = horizontalExpansion(verticallyExpanded, horizontalInserts)
-        println("EXPANDED!")
-        fullyExpanded.forEach {
-            println(it)
-        }
+
+        val imageGalaxies = getGalaxyCoordinates(image)
+        val orig = calculateGalaxyDistances(imageGalaxies)
 
         val galaxies = getGalaxyCoordinates(fullyExpanded)
-        return calculateGalaxyDistances(galaxies)
+        val expanded = calculateGalaxyDistances(galaxies)
+
+        return calDistDif(orig.second, expanded.second, 1000000)
     }
 
     // test if implementation meets criteria from the description, like:
@@ -181,7 +181,7 @@ fun main() {
     println("part1 took: $elapsed1")
     val elapsed2 =
         measureTimeMillis {
-            val input2 = readInput("Day11_test")
+            val input2 = readInput("Day11")
             val part2Result = part2(input2)
             part2Result.println()
             // check(part2Result == 908)
