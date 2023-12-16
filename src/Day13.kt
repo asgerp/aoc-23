@@ -1,9 +1,6 @@
-import java.util.regex.Pattern
-import kotlin.math.abs
 import kotlin.system.measureTimeMillis
 
 fun main() {
-
     fun transpose(list: List<String>): List<String> {
         val transposed = mutableListOf<String>()
         list[0].forEach { _ ->
@@ -18,7 +15,10 @@ fun main() {
         return transposed
     }
 
-    fun findReflection(input: List<String>, horizontal: Boolean = false): Int {
+    fun findReflection(
+        input: List<String>,
+        horizontal: Boolean = false,
+    ): Int {
         var prevLine = ""
         var foundAtIndex = 0
         input.forEachIndexed { index, line ->
@@ -93,7 +93,7 @@ fun main() {
             val input = readInput("Day13")
             val part1Result = part1(input)
             part1Result.println()
-            //check(part1Result == 9742154)
+            // check(part1Result == 9742154)
         }
     println("part1 took: $elapsed1")
     val elapsed2 =
