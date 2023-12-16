@@ -20,7 +20,7 @@ fun main() {
         horizontal: Boolean = false,
     ): Int {
         var prevLine = ""
-        var foundAtIndex = 0
+        var foundAtIndex: Int
         input.forEachIndexed { index, line ->
             if (line == prevLine) {
                 var offSet = 1
