@@ -84,7 +84,7 @@ fun main() {
     // check(part1(testInput) == 1)
     val elapsed1 =
         measureTimeMillis {
-            val input = readInput("Day15_02")
+            val input = readInput("Day15")
             val part1Result = part1(input)
             println("result = $part1Result")
             check(part1Result == 517315)
@@ -92,7 +92,7 @@ fun main() {
     println("part1 took: $elapsed1")
     val elapsed2 =
         measureTimeMillis {
-            val input2 = readInput("Day15_02")
+            val input2 = readInput("Day15")
             val part2Result = part2(input2)
             println("result = $part2Result")
             check(part2Result == 247763)
